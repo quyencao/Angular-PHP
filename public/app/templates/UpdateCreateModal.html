@@ -1,0 +1,46 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">{{ updateCreateModal.header }}</h3>
+</div>
+<form name="form" ng-submit="updateCreateModal.submitForm(form.$valid)" novalidate>
+    <div class="modal-body" id="modal-body">
+            <div class="form-group" ng-class="{ 'has-success': !form.name.$pristine && form.name.$valid , 'has-error': form.name.$error.minlength && !form.name.$pristine || form.name.$error.required && !form.name.$pristine }">
+                <label for="name" class="control-label">Name:</label>
+                <input type="text" class="form-control" name="name" id="name" ng-model="updateCreateModal.product.name" required ng-minlength="3">
+                <p ng-show="form.name.$error.required && !form.name.$pristine" class="help-block">Product's name is required.</p>
+                <p ng-show="form.name.$error.minlength && !form.name.$pristine" class="help-block">Product's name is too short.</p>
+            </div>
+            <div class="form-group" ng-class="{ 'has-success': !form.price.$pristine && form.price.$valid , 'has-error': form.price.$error.required && !form.price.$pristine || form.price.$error.pattern && !form.price.$pristine }">
+                <label for="price" class="control-label">Price:</label>
+                <input type="text" class="form-control" name="price" id="price" ng-model="updateCreateModal.product.price" ng-pattern="/^[0-9]+(\.[0-9]+)?$/" required>
+                <p ng-show="form.price.$error.required && !form.price.$pristine" class="help-block">Product's price is required.</p>
+                <p ng-show="form.price.$error.pattern && !form.price.$pristine" class="help-block">Product's price must be numbers.</p>
+            </div>
+            <div class="form-group" ng-class="{ 'has-success': !form.image.$pristine && form.image.$valid , 'has-error': form.image.$error.required && !form.image.$pristine || form.image.$error.url && !form.image.$pristine }">
+                <label for="image" class="control-label">Image:</label>
+                <input type="url" class="form-control" name="image" id="image" ng-model="updateCreateModal.product.image" required>
+                <p ng-show="form.image.$error.required && !form.image.$pristine" class="help-block">Product's image is required.</p>
+                <p ng-show="form.image.$error.url && !form.image.$pristine" class="help-block">Product's image must be an url.</p>
+            </div>
+            <div class="form-group" ng-if="updateCreateModal.product.image">
+                <label for="preview">Preview Image:</label>
+                <img ng-src="{{updateCreateModal.product.image}}" width="100" alt="" id="preview" required>
+            </div>
+            <div class="form-group" ng-class="{ 'has-success': !form.description.$pristine && form.description.$valid , 'has-error': form.description.$error.required && !form.description.$pristine }">
+                <label for="description" class="control-label">Description:</label>
+                <textarea class="form-control" id="description" name="description" rows="10" ng-model="updateCreateModal.product.description" required></textarea>
+                <p ng-show="form.description.$error.required && !form.description.$pristine" class="help-block">Product's description is required.</p>
+            </div>
+            <div class="form-group" ng-class="{ 'has-success': !form.category.$pristine && form.category.$valid , 'has-error': form.category.$error.required && !form.category.$pristine }">
+                <label for="category" class="control-label">Category:</label>
+                <select name="category" id="category" class="form-control" ng-model="updateCreateModal.product.category_id" required>
+                    <option ng-repeat="category in updateCreateModal.categories" value="{{ category.id }}">{{ category.name }}</option>
+                </select>
+                <p ng-show="form.category.$error.required && !form.category.$pristine" class="help-block">Product's category is required.</p>
+            </div>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="submit" ng-disabled="form.$invalid">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="updateCreateModal.cancel()">Cancel</button>
+    </div>
+</form>

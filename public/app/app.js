@@ -1,8 +1,8 @@
 (function () {
 
-    var app = angular.module('app', ['ngRoute']);
+    var app = angular.module('app', ['ngRoute', 'ui.bootstrap']);
 
-    app.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
+    app.config(['$routeProvider', function ($routeProvider) {
 
         $routeProvider
             .when('/', {

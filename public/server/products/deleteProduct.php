@@ -5,7 +5,7 @@
 
     $postData = json_decode($postDataJSON);
 
-    if($postData->productId) {
+    if(!empty($postData->productId)) {
         $rowCount = Database::deleteProduct($postData->productId);
         if($rowCount == 1) {
             echo "Delete Success";

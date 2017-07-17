@@ -35,10 +35,53 @@ class Database
     }
 
     public static function selectAllProducts() {
-        $query = "SELECT p.id, p.name, p.description, p.price, p.image, c.name AS categoryName 
+        $query = "SELECT p.id, p.name, p.description, p.price, p.image, p.category_id, c.name AS categoryName 
             FROM products AS p INNER JOIN categories AS c ON p.category_id = c.id";
 
         return self::fetchAll($query);
+    }
+
+    public static function selectAllCategories() {
+        $query = "SELECT * FROM categories";
+
+        return self::fetchAll($query);
+    }
+
+    public static function updateProduct($data) {
+        $query = "UPDATE products SET name = :name, price = :price, image = :image, 
+            description = :description, category_id = :category_id WHERE id = :id";
+
+        $connection = self::getConnection();
+        $update = $connection->prepare($query);
+        $update->bindParam(':name', $data['name']);
+        $update->bindParam(':price', $data['price']);
+        $update->bindParam(':image', $data['image']);
+        $update->bindParam(':description', $data['description']);
+        $update->bindParam(':category_id', $data['category_id']);
+        $update->bindParam(':id', $data['id']);
+
+        $update->execute();
+        return $update->rowCount();
+    }
+
+    public static function createProduct($data) {
+        $query = "INSERT INTO products(name, description, price, category_id, image) 
+                VALUES(:name, :description, :price, :category_id, :image)";
+
+        $connection = self::getConnection();
+        $insert = $connection->prepare($query);
+        $insert->execute(array(
+            ':name' => $data['name'],
+            ':description' => $data['description'],
+            ':price' => $data['price'],
+            ':category_id' => $data['category_id'],
+            ':image' => $data['image']
+        ));
+
+        return 1;
+
+//        $connection->exec($insert);
+//        return $insert->rowCount();
     }
 
     public static function deleteProduct($id) {
