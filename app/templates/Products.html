@@ -24,7 +24,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="product in products.allProducts | filter: product.search">
-                    <td>{{ product.name }}</td>
+                    <td><a href="#!/products/{{ product.id }}">{{ product.name }}</a></td>
                     <td>{{ product.description | ShortDescriptionFilter:30 }}</td>
                     <td>{{ product.price | currency }}</td>
                     <td>{{ product.categoryName }}</td>
@@ -35,7 +35,7 @@
                             <i class="fa fa-pencil fa-2x" aria-hidden="true"></i>
                         </button>
                         <button ng-controller="ConfirmModalController as confirmModal" type="button" class="btn btn-danger"
-                                ng-click="confirmModal.open('md', product.id)">
+                                ng-click="confirmModal.open('md', product.id, 'product')">
                             <i class="fa fa-trash fa-2x" aria-hidden="true"></i>
                         </button>
                     </td>

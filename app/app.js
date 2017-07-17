@@ -13,6 +13,11 @@
                controller: 'ProductController',
                controllerAs: 'products'
             })
+            .when('/products/:id', {
+               templateUrl: '/app/templates/SingleProduct.html',
+               controller: 'SingleProductController',
+               controllerAs: 'product'
+            })
             .when('/categories', {
                templateUrl: '/app/templates/Categories.html',
                controller: 'CategoryController',

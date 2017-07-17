@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="row .btn-add-container">
+        <h1>Categories
+            <button class="btn btn-primary btn-lg .btn-add pull-right">
+                <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
+            </button>
+        </h1>
+    </div>
+    <div class="row">
+        <input type="text" class="form-control" placeholder="Search category by keyword..." ng-model="categories.search">
+    </div>
+    <div class="row">
+        <table class="table table-bordered table-responsive">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="category in categories.allCategories | filter: categories.search">
+                <td>{{ category.name }}</td>
+                <td>{{ category.description | ShortDescriptionFilter:30 }}</td>
+                <td>
+                    <button class="btn btn-warning">
+                        <i class="fa fa-pencil fa-2x" aria-hidden="true"></i>
+                    </button>
+                    <button ng-controller="ConfirmModalController as confirmModal" type="button" class="btn btn-danger"
+                            ng-click="confirmModal.open('md', category.id, 'category')">
+                        <i class="fa fa-trash fa-2x" aria-hidden="true"></i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

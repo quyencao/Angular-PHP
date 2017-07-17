@@ -1,0 +1,18 @@
+<div class="container panel panel-primary" style="padding: 0; margin-top: 40px">
+    <div class="panel-heading">
+        <h1>{{ product.product.name }}
+            <a class="btn btn-default btn-lg pull-right" href="#!/products">Back</a>
+        </h1>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-4" style="margin: auto">
+                <img ng-src="{{ product.product.image }}"  alt="" class="img-responsive img-rounded">
+            </div>
+            <div class="col-sm-8">
+                <p class="lead">Price: {{ product.product.price | currency }}</>
+                <p class="lead">Description: {{ product.product.description }}</p>
+            </div>
+        </div>
+    </div>
+</div>

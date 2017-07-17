@@ -13,8 +13,23 @@
             removeProduct: removeProduct,
             createProduct: createProduct,
             updateProduct: updateProduct,
-            getAllCategories: getAllCategories
+            getSingleProduct: getSingleProduct,
+            getAllCategories: getAllCategories,
+            removeCategory: removeCategory
         };
+
+        function getSingleProduct(productId) {
+            var url = baseProductUrl + 'singleProduct.php';
+
+            return $http.get(url, {
+                params: { productId: productId }
+            })
+                .then(function (response) {
+                    console.log(response.data);
+                    return response.data;
+                })
+                .catch(handlesError);
+        }
 
         function getAllProducts() {
             var url = baseProductUrl + 'getAllProducts.php';
@@ -43,6 +58,16 @@
                     .then(function (response) {
                         return response.data;
                     })
+                .catch(removeProductError);
+        }
+
+        function removeCategory(categoryId) {
+            var url = baseCategoryUrl + 'deleteCategory.php';
+
+            return $http.post(url, { categoryId: categoryId })
+                .then(function (response) {
+                    return response.data;
+                })
                 .catch(removeProductError);
         }
 

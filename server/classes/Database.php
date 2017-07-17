@@ -22,8 +22,8 @@ class Database
         return $stmt->fetchAll();
     }
 
-    public static function selectById($table, $id) {
-        $query = "SELECT * FROM " . $table . " WHERE id = :id";
+    public static function selectProductById($id) {
+        $query = "SELECT * FROM products WHERE id = :id";
 
         $connection = self::getConnection();
         $stmt = $connection->prepare($query);
@@ -88,6 +88,21 @@ class Database
         $query = "DELETE FROM products WHERE id = :id";
 
         $connection = self::getConnection();
+        $delete = $connection->prepare($query);
+        $delete->bindParam(':id', $id);
+        $delete->execute();
+
+        return $delete->rowCount();
+    }
+
+    public static function deleteCategory($id) {
+        $connection = self::getConnection();
+        $query = "DELETE FROM products WHERE category_id = :id";
+        $delete = $connection->prepare($query);
+        $delete->bindParam(':id', $id);
+        $delete->execute();
+
+        $query = "DELETE FROM categories WHERE id = :id";
         $delete = $connection->prepare($query);
         $delete->bindParam(':id', $id);
         $delete->execute();
